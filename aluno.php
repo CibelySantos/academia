@@ -63,6 +63,13 @@ $result = $conn->query($sql); // Executa a consulta e armazena os resultados
     <link rel="stylesheet" href="./css/aluno.css">
 </head>
 <body>
+<nav class="navbar">
+    <a href="index.php"><img src="./img/logo_academia_nav.png" alt=""></a>
+    <a href="index.php">Início</a>
+    <a href="aluno.php">Aluno</a>
+    <a href="instrutor.php">Instrutor</a>
+    <a href="aula.php">Agendar aula</a>
+</nav>
 <div class="container mt-4">
     <h2 class="text-center">Lista de Alunos</h2>
     <table class="table table-bordered table-striped">
@@ -96,5 +103,8 @@ $result = $conn->query($sql); // Executa a consulta e armazena os resultados
         </tbody>
     </table>
 </div>
+<footer class="footer">
+    <p>&copy; <?php echo date("Y"); ?> Academia Saúde Total. Todos os direitos reservados.</p>
+</footer>
 </body>
 </html>
