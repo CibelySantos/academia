@@ -3,17 +3,25 @@ session_start();
 $mysqli = new mysqli('localhost', 'root', '', 'db_academia');
 
 if ($mysqli->connect_error) {
-    die("Erro na conexão: " . $mysqli->connect_error);
+    die("Connection failed: " . $mysqli->connect_error);
 }
 
-if (isset($_GET['id'])) {
-    $aula_id = intval($_GET['id']);
+// Verifica se o ID foi passado
+if (!isset($_GET['id'])) {
+    die("ID da aula não fornecido.");
+}
 
-    $stmt = $mysqli->prepare("SELECT aula_tipo, aula_data FROM aula WHERE aula_cod = ?");
-    $stmt->bind_param("i", $aula_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $aula = $result->fetch_assoc();
+$aula_id = intval($_GET['id']);
+
+// Consulta os dados da aula para preencher o formulário
+$stmt = $mysqli->prepare("SELECT aula_tipo, aula_data FROM aula WHERE aula_cod = ?");
+$stmt->bind_param("i", $aula_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$aula = $result->fetch_assoc();
+
+if (!$aula) {
+    die("Aula não encontrada.");
 }
 
 // Atualizar a aula após edição
@@ -23,10 +31,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $stmt = $mysqli->prepare("UPDATE aula SET aula_tipo = ?, aula_data = ? WHERE aula_cod = ?");
     $stmt->bind_param("ssi", $novo_tipo, $nova_data, $aula_id);
-    
+
     if ($stmt->execute()) {
         echo "<script>
-            alert('Agendamento atualizado com sucesso!');
+            alert('Aula atualizada com sucesso!');
             window.location.href = 'minhas_aulas.php';
         </script>";
     }
@@ -37,19 +45,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Editar Agendamento</title>
+    <title>Editar Aula</title>
 </head>
 <body>
-    <h2>Editar Agendamento</h2>
+    <h2>Editar Aula</h2>
     <form method="POST">
         <label for="tipo_treino">Tipo de Treino:</label>
         <input type="text" name="tipo_treino" value="<?= htmlspecialchars($aula['aula_tipo']); ?>" required><br>
 
         <label for="data">Data e Horário:</label>
         <input type="datetime-local" name="data" value="<?= date('Y-m-d\TH:i', strtotime($aula['aula_data'])); ?>" required><br>
-
-        <label for="horario">Horário:</label>
-        <input type="time" name="horario" value="<?= date('H:i', strtotime($agendamento['aula_data'])); ?>" required><br>
 
         <button type="submit">Salvar</button>
         <a href="minhas_aulas.php">Cancelar</a>

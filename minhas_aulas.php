@@ -6,42 +6,30 @@ if ($mysqli->connect_error) {
     die("Connection failed: " . $mysqli->connect_error);
 }
 
-// Verifica se o usuário está logado
-if (!isset($_SESSION['id_cliente']) || empty($_SESSION['id_cliente'])) {
-    header("Location: login.php"); 
-    exit();
-}
-
-$id_cliente = $_SESSION['id_cliente'];
-
-// Consulta os agendamentos do usuário logado
-$sql = "SELECT a.aula_cod, a.aula_tipo, a.aula_data, i.instrutor_nome 
+// Consulta todas as aulas agendadas, incluindo instrutor e aluno
+$sql = "SELECT a.aula_cod, a.aula_tipo, a.aula_data, i.instrutor_nome, al.aluno_nome 
         FROM aula a
         JOIN instrutores i ON a.fk_instrutor_cod = i.instrutor_cod
-        WHERE a.fk_aluno_cod = ?";
-$stmt = $mysqli->prepare($sql);
-$stmt->bind_param("i", $id_cliente);
-$stmt->execute();
-$result = $stmt->get_result();
+        JOIN aluno al ON a.fk_aluno_cod = al.aluno_cod";
+$result = $mysqli->query($sql);
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minhas Aulas</title>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <h2>Minhas Aulas</h2>
-
     <table border="1">
         <thead>
             <tr>
-                <th>Tipo de Treino</th>
-                <th>Instrutor</th>
+                <th>Tipo de Aula</th>
                 <th>Data</th>
+                <th>Instrutor</th>
+                <th>Aluno</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -49,17 +37,17 @@ $result = $stmt->get_result();
             <?php while ($row = $result->fetch_assoc()) { ?>
                 <tr>
                     <td><?= htmlspecialchars($row['aula_tipo']); ?></td>
-                    <td><?= htmlspecialchars($row['instrutor_nome']); ?></td>
                     <td><?= date('d/m/Y H:i', strtotime($row['aula_data'])); ?></td>
+                    <td><?= htmlspecialchars($row['instrutor_nome']); ?></td>
+                    <td><?= htmlspecialchars($row['aluno_nome']); ?></td>
                     <td>
-                        <!-- Formulário para editar -->
-                        <form action="editar_aula.php" method="POST" style="display:inline;">
-                            <input type="hidden" name="aula_cod" value="<?= $row['aula_cod']; ?>">
-                            <button type="submit">Editar</button>
-                        </form>
-
-                        <!-- Botão para excluir com alerta -->
+                        <a href="editar_aula.php?id=<?= $row['aula_cod']; ?>">
+                            <button>Editar</button>
+                        </a>
                         <button onclick="confirmarExclusao(<?= $row['aula_cod']; ?>)">Excluir</button>
+                        <form id="formExcluir<?= $row['aula_cod']; ?>" action="excluir_aula.php" method="POST" style="display:none;">
+                            <input type="hidden" name="aula_cod" value="<?= $row['aula_cod']; ?>">
+                        </form>
                     </td>
                 </tr>
             <?php } ?>
@@ -70,7 +58,7 @@ $result = $stmt->get_result();
         function confirmarExclusao(aula_cod) {
             Swal.fire({
                 title: "Tem certeza?",
-                text: "Você deseja excluir este agendamento?",
+                text: "Deseja excluir esta aula?",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#d33",
@@ -79,7 +67,7 @@ $result = $stmt->get_result();
                 cancelButtonText: "Cancelar"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "excluir_aula.php?aula_cod=" + aula_cod;
+                    document.getElementById("formExcluir" + aula_cod).submit();
                 }
             });
         }
