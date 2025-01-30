@@ -1,0 +1,76 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Corpo da página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #FFEBB5; /* Tom bege claro para fundo */
+    text-align: center;
+    padding: 20px;
+}
+
+/* Estilização dos títulos */
+h2 {
+    color: #D88A29; /* Laranja escuro */
+    font-size: 28px;
+    text-transform: uppercase;
+}
+
+/* Barra de Navegação */
+.navbar {
+    background-color: #D88A29; /* Laranja escuro */
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.navbar a:hover {
+    background-color: #FFC773; /* Laranja médio */
+    color: #333;
+}
+
+/* Ajuste para evitar que o conteúdo fique atrás da navbar */
+.content {
+    margin-top: 70px;
+}
+
+/* Estilização da tabela */
+table {
+    width: 60%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: #FFD27F; /* Tom laranja claro */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #D88A29; /* Laranja escuro */
+    text-align: left;
+}
+
+th {
+    background: #D88A29; /* Laranja escuro
