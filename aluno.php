@@ -1,6 +1,19 @@
 <?php 
 include "./bd/conexao.php"; // Verifique o caminho do seu arquivo 'conexao.php'
 
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "db_academia";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Verifica conexão
+if ($conn->connect_error) {
+    die("Falha na conexão: " . $conn->connect_error);
+}
+
 // Verifica se o formulário de exclusão foi enviado via POST
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['excluir'])) {
     $aluno_cod = $_POST['excluir']; // Obtém o ID do aluno enviado pelo formulário
@@ -47,6 +60,7 @@ $result = $conn->query($sql); // Executa a consulta e armazena os resultados
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Alunos</title>
+    <link rel="stylesheet" href="./css/aluno.css">
 </head>
 <body>
 <div class="container mt-4">
@@ -62,14 +76,14 @@ $result = $conn->query($sql); // Executa a consulta e armazena os resultados
         </thead>
         <tbody>
             <!-- Loop que percorre cada aluno no banco e exibe na tabela -->
-            <?php while ($row = $result->fetch(PDO::FETCH_ASSOC)) { ?>
+            <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                 <tr>
                     <td><?= htmlspecialchars($row['aluno_nome']); ?></td>
                     <td><?= htmlspecialchars($row['aluno_cpf']); ?></td>
                     <td><?= htmlspecialchars($row['aluno_endereco']); ?></td>
                     <td>
                         <!-- Botão para editar (redireciona para editar_aluno.php com ID do aluno) -->
-                        <a href="edicao_alunos.php?id=<?= $row['aluno_cod']; ?>" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="edicao_aluno.php?id=<?= $row['aluno_cod']; ?>" class="btn btn-warning btn-sm">Editar</a>
                         
                         <!-- Formulário para excluir o aluno com método POST -->
                         <form method="POST" action="aluno.php" style="display:inline;">
