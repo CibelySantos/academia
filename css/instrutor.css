@@ -1,90 +1,129 @@
-/* Reset básico */
+/* Reset básico para o layout */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
 }
 
+/* Estilo global do body */
 body {
-    background-color: #f4f4f4;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f3e5; /* Fundo suave em bege claro */
     color: #333;
     line-height: 1.6;
-    text-align: center;
+    padding-bottom: 60px; /* Para não sobrepor o rodapé fixo */
 }
 
 /* Barra de Navegação */
 .navbar {
-    background: linear-gradient(90deg, #FF8C00, #FFA500);
-    padding: 15px 0;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #f39c12; /* Laranja queimado */
+    overflow: hidden;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
 }
 
 .navbar a {
-    color: white;
+    color: #fff;
     text-decoration: none;
-    margin: 0 15px;
     font-size: 18px;
-    font-weight: bold;
-    transition: color 0.3s;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+/* Logo da barra de navegação */
+.navbar img {
+    height: 40px;
 }
 
-.navbar a:hover {
-    color: #ffe680;
-    text-decoration: underline;
+/* Título da página */
+h2 {
+    text-align: center;
+    margin: 40px 0;
+    font-size: 28px;
+    font-weight: 600;
+    color: #d35400; /* Laranja escuro */
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
-/* Tabela de Instrutores */
+/* Estilo da tabela */
 table {
-    width: 80%;
+    width: 85%;
     margin: 20px auto;
     border-collapse: collapse;
-    background: white;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
     border-radius: 8px;
-    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-table th, table td {
+th, td {
     padding: 15px;
-    border: 1px solid #ddd;
     text-align: left;
     font-size: 16px;
+    border-bottom: 2px solid #f4f4f4;
 }
 
-table th {
-    background: linear-gradient(90deg, #FF8C00, #FFA500);
-    color: white;
-    font-weight: bold;
+th {
+    background-color: #f39c12; /* Laranja queimado */
+    color: #fff;
+    font-weight: 600;
 }
 
-table tr:nth-child(even) {
-    background: #ffebcc;
+td {
+    background-color: #fff8e1; /* Amarelo suave */
 }
 
-table tr:hover {
-    background: #ffe0b3;
-    transition: 0.3s;
+tr:nth-child(even) td {
+    background-color: #fcf3e4; /* Amarelo bem claro */
 }
 
-/* Seção de Contato */
-.content {
-    background: white;
-    width: 60%;
-    margin: 20px auto;
-    padding: 25px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+tr:hover td {
+    background-color: #fcebb4; /* Amarelo bem suave */
 }
 
-.content h2 {
-    color: #FF8C00;
-    margin-bottom: 15px;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.content p {
+/* Estilo das mensagens (Nenhum instrutor encontrado) */
+p {
+    text-align: center;
     font-size: 18px;
-    color: #555;
+    color: #ffffff; /* Vermelho suave para alertas */
+}
+
+/* Rodapé */
+.footer {
+    text-align: center;
+    background-color: #f39c12; /* Laranja queimado */
+    color: #fff;
+    padding: 18px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    border-radius: 10px 10px 0 0;
+}
+
+.footer p {
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .navbar a {
+        font-size: 16px;
+        padding: 12px 18px;
+    }
+
+    table {
+        width: 95%;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    .footer p {
+        font-size: 12px;
+    }
 }

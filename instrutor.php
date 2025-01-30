@@ -22,22 +22,14 @@ if ($conn->connect_error) {
     <link rel="stylesheet" href="./css/instrutor.css">
 </head>
 <body>
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contato</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
 
 <!-- Barra de Navegação -->
-<div class="navbar">
-    <a href="index.php">Início</a>
-    <a href="instrutores.php">Instrutores</a>
-    <a href="contato.php">Contato</a>
-</div>
+<nav class="navbar">
+    <a href="index.php"><img src="./img/logo_academia_nav.png" alt=""></a>
+    <a href="aluno.php">Aluno</a>
+    <a href="instrutor.php">Instrutor</a>
+    <a href="aula.php">Agendar aula</a>
+</nav>
 
 <h2>Instrutores Cadastrados</h2>
 
@@ -58,16 +50,11 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
-<!-- Conteúdo da Página -->
-<div class="content">
-    <h2>Entre em Contato</h2>
-    <p>Telefone: (XX) XXXX-XXXX</p>
-    <p>Email: contato@saudetotal.com</p>
-    <p>Endereço: Rua Exemplo, 123 - Academia Saúde Total</p>
-</div>
 
-</body>
-</html>
+<!-- Rodapé -->
+<footer class="footer">
+    <p>&copy; <?php echo date("Y"); ?> Academia Saúde Total. Todos os direitos reservados.</p>
+</footer>
 
 </body>
 </html>
