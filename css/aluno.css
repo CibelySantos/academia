@@ -1,39 +1,57 @@
-/* Reset e configuração de fontes */
 * {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     box-sizing: border-box;
 }
-
 body {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
 }
 
-/* Estilo do contêiner */
-.container {
-    width: 80%;
-    margin: 50px auto;
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.navbar {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #ffb12a;
+    padding: 10px;
+    margin: 0;
 }
 
-/* Título da página */
+.navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+.navbar a:hover {
+    background-color: #ff9100;
+    border-radius: 5px;
+}
+
+.navbar img {
+    height: 50px;
+    width: 50px;
+}
+
+/* Título */
 h2.text-center {
     text-align: center;
     font-size: 2em;
-    color: #333;
-    margin-bottom: 30px;
+    margin: 30px 0;
 }
 
 /* Estilo da Tabela */
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    border-radius: 10px;
+    border-radius: 30px;
 }
 
 th, td {
@@ -83,46 +101,78 @@ table tbody tr:hover {
     background-color: #c9302c;
 }
 
-/* Estilo do formulário de exclusão (não exibe o botão diretamente, apenas o formulário) */
-form {
-    display: inline;
+/* Rodapé */
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #ffb12a;
+    color: white;
+    bottom: 0;
+    width: 100%;
+    margin-top: 3%;
 }
 
 /* Responsividade */
 @media (max-width: 1024px) {
-    .container {
-        width: 90%;
+    .navbar {
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .navbar a {
+        padding: 8px;
+        font-size: 16px;
     }
 
     h2.text-center {
         font-size: 1.8em;
     }
 
+    .container {
+        width: 95%;
+    }
+    
     table th, table td {
         font-size: 14px;
     }
 }
 
 @media (max-width: 768px) {
-    .container {
-        width: 95%;
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar a {
+        padding: 8px;
+        font-size: 16px;
     }
 
     h2.text-center {
         font-size: 1.6em;
     }
 
-    table th, table td {
+    table {
         font-size: 12px;
+    }
+
+    .footer {
+        position: static;
+        padding: 10px;
     }
 }
 
 @media (max-width: 480px) {
-    h2.text-center {
-        font-size: 1.4em;
+    .navbar {
+        flex-direction: column;
     }
 
-    table th, table td {
+    .navbar a {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    table {
         font-size: 12px;
     }
 }

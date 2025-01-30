@@ -107,9 +107,10 @@ table tbody tr:hover {
     padding: 20px;
     background-color: #ffb12a;
     color: white;
-    position: fixed;
     bottom: 0;
     width: 100%;
+    margin-top: 3%;
+
 }
 
 /* Responsividade */
