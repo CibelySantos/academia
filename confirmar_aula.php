@@ -1,78 +1,71 @@
 <?php
 session_start();
 
-
 if ($_SESSION['id_cliente'] == "" && $_SESSION['usuario_sessao'] == "") {
     header("Location: ./minhas_aulas.php");
     exit();
 }
 
-// Verifica se os dados foram enviados
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmar']) && $_POST['confirmar'] === 'true') {
+// Inicializa as variáveis para evitar warnings
+$nome = '';
+$instrutor = '';
+$tipo_treino = '';
+$data = '';
+$horario = '';
+
+// Verifica se os dados foram passados via POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Recebe os dados do agendamento
-    $nome = $_POST['nome'];
-    $instrutor = $_POST['instrutor'];
-    $tipo_treino = $_POST['tipo_treino'];
-    $data = $_POST['data'];
-    $horario = $_POST['horario'];
-
-    // Conectar ao banco de dados
-    $mysqli = new mysqli('localhost', 'root', '', 'db_academia');
-    if ($mysqli->connect_error) {
-        die("Connection failed: " . $mysqli->connect_error);
-    }
-
-    // Verifica se o horário já está agendado
-    $sql = "SELECT * FROM agendamentos WHERE data = ? AND horario = ?";
-    $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param('ss', $data, $horario);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        echo "Esse horário já foi reservado.";
-        exit();
-    }
-
-    // Insere o agendamento no banco de dados
-    $sql = "INSERT INTO agendamentos (nome, instrutor_cod, tipo_treino, data, horario) VALUES (?, ?, ?, ?, ?)";
-    $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param('sisss', $nome, $instrutor, $tipo_treino, $data, $horario);
-
-    if ($stmt->execute()) {
-        echo "Agendamento confirmado com sucesso!";
-        // Redireciona após sucesso
-        header("Location: agendamento_confirmado.php");
-        exit();
-    } else {
-        echo "Erro ao agendar.";
-    }
+    $nome = $_POST['nome'] ?? '';
+    $instrutor = $_POST['instrutor'] ?? '';
+    $tipo_treino = $_POST['tipo_treino'] ?? '';
+    $data = $_POST['data'] ?? '';
+    $horario = $_POST['horario'] ?? '';
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmar Agendamento</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert2 -->
 </head>
-
 <body>
     <center><h2>Confirmar Agendamento</h2></center>
 
     <!-- Exibe os dados do agendamento -->
-    <p><strong>Nome:</strong> <?= htmlspecialchars($nome); ?></p>
-    <p><strong>Instrutor:</strong> <?= htmlspecialchars($instrutor); ?></p>
-    <p><strong>Tipo de Treino:</strong> <?= htmlspecialchars($tipo_treino); ?></p>
-    <p><strong>Data:</strong> <?= htmlspecialchars($data); ?></p>
-    <p><strong>Horário:</strong> <?= htmlspecialchars($horario); ?></p>
+    <p><strong>Nome:</strong> <?= ($nome); ?></p>
+    <p><strong>Instrutor:</strong> <?= ($instrutor); ?></p>
+    <p><strong>Tipo de Treino:</strong> <?= ($tipo_treino); ?></p>
+    <p><strong>Data:</strong> <?= ($data); ?></p>
+    <p><strong>Horário:</strong> <?= ($horario); ?></p>
 
-    <form method="POST">
-        <button type="button" onclick="location.href='./minhas_aulas.php'">Confirmar Agendamento</button>
+    <!-- Formulário para confirmar ou cancelar -->
+    <form id="agendamentoForm" method="POST" action="confirmar_aula.php">
+        <input type="hidden" name="nome" value="<?= ($nome); ?>">
+        <input type="hidden" name="instrutor" value="<?= ($instrutor); ?>">
+        <input type="hidden" name="tipo_treino" value="<?= ($tipo_treino); ?>">
+        <input type="hidden" name="data" value="<?= ($data); ?>">
+        <input type="hidden" name="horario" value="<?= ($horario); ?>">
+
+        <button type="button" onclick="confirmarAgendamento()">Confirmar Agendamento</button>
         <button type="button" onclick="location.href='./aula.php'">Cancelar</button>
     </form>
-</body>
 
+    <script>
+        function confirmarAgendamento() {
+            Swal.fire({
+                title: "Aula Agendada!",
+                text: "Seu agendamento foi realizado com sucesso.",
+                icon: "success",
+                timer: 1500, // Tempo antes de redirecionar (2 segundos)
+                showConfirmButton: false
+            }).then(() => {
+                window.location.href = "minhas_aulas.php"; // Redireciona para outra página
+            });
+        }
+    </script>
+</body>
 </html>
