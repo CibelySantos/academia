@@ -7,7 +7,7 @@ if ($mysqli->connect_error) {
 }
 
 // Obter instrutores
-$instrutores = $mysqli->query("SELECT instrutor_cod, instrutor_nome FROM instrutores")->fetch_all(MYSQLI_ASSOC);
+$instrutores = $mysqli->query("SELECT * FROM instrutores")->fetch_all(MYSQLI_ASSOC);
 // Obter tipos de treino
 $tipos_treino = $mysqli->query("SELECT DISTINCT aula_tipo FROM aula")->fetch_all(MYSQLI_ASSOC);
 ?>
@@ -28,20 +28,27 @@ $tipos_treino = $mysqli->query("SELECT DISTINCT aula_tipo FROM aula")->fetch_all
         <input type="text" name="nome" required><br>
 
         <label for="instrutor">Escolha o Instrutor:</label>
-        <select name="instrutor" required>
+        <select name="instrutor" id="instrutor" required>
             <option value="">Selecione</option>
-            <?php foreach ($instrutores as $instrutor) {
-                echo "<option value='" . $instrutor['instrutor_cod'] . "'>" . $instrutor['instrutor_nome'] . "</option>";
-            } ?>
+            <?php foreach ($instrutores as $instrutor) { 
+            
+                $especialidade = isset($instrutor['instrutor_especialidade']) ? $instrutor['instrutor_especialidade'] : '';
+            ?>
+                <option value="<?= $instrutor['instrutor_cod'] ?>" data-especialidade="<?= htmlspecialchars($especialidade) ?>">
+                    <?= htmlspecialchars($instrutor['instrutor_nome']) ?>
+                </option>
+            <?php } ?>
         </select><br>
 
-        <label for="tipo_treino">Tipo de Treino:</label>
-        <select name="tipo_treino" required>
-            <option value="">Selecione</option>
-            <?php foreach ($tipos_treino as $treino) {
-                echo "<option value='" . $treino['aula_tipo'] . "'>" . $treino['aula_tipo'] . "</option>";
-            } ?>
-        </select><br>
+        <label for="especialidade">Especialidade:</label>
+        <input type="text" id="especialidade" readonly><br>
+
+        <script>
+            document.getElementById("instrutor").addEventListener("change", function() {
+                var especialidade = this.options[this.selectedIndex].getAttribute("data-especialidade");
+                document.getElementById("especialidade").value = especialidade ? especialidade : "";
+            });
+        </script>
 
         <label for="data">Escolha a Data:</label>
         <input type="date" name="data" required><br>
@@ -49,13 +56,13 @@ $tipos_treino = $mysqli->query("SELECT DISTINCT aula_tipo FROM aula")->fetch_all
         <label for="horario">Escolha o Horário:</label>
         <input type="time" name="horario" required><br>
 
-    
+
         <button type="submit">Agendar</button>
-        
 
-    
 
-    </for>
+
+
+        </for>
 </body>
 
 </html>
