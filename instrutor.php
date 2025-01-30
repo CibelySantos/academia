@@ -37,17 +37,14 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instrutores Cadastrados</title>
-<<<<<<< HEAD
     <link rel="stylesheet" href="./css/instrutor.css">
-=======
-    <link rel="stylesheet" href="styles.css">
->>>>>>> 221546796e1b177c51ec5dbd235ae5cc983dac5c
 </head>
 <body>
 
 <!-- Barra de Navegação -->
 <nav class="navbar">
     <a href="index.php"><img src="./img/logo_academia_nav.png" alt=""></a>
+    <a href="index.php">Início</a>
     <a href="aluno.php">Aluno</a>
     <a href="instrutor.php">Instrutor</a>
     <a href="aula.php">Agendar aula</a>
@@ -88,5 +85,8 @@ $result = $conn->query($sql);
 <?php
 $conn->close();
 ?>
+<footer class="footer">
+    <p>&copy; <?php echo date("Y"); ?> Academia Saúde Total. Todos os direitos reservados.</p>
+</footer>
 </body>
 </html>

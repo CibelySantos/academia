@@ -1,129 +1,178 @@
-/* Reset básico para o layout */
 * {
-    margin: 0;
-    padding: 0;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     box-sizing: border-box;
 }
-
-/* Estilo global do body */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f9f3e5; /* Fundo suave em bege claro */
-    color: #333;
-    line-height: 1.6;
-    padding-bottom: 60px; /* Para não sobrepor o rodapé fixo */
+    margin: 0;
+    padding: 0;
 }
 
-/* Barra de Navegação */
 .navbar {
-    background-color: #f39c12; /* Laranja queimado */
-    overflow: hidden;
-    border-radius: 0 0 10px 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
-    padding: 10px 20px;
+    background-color: #ffb12a;
+    padding: 10px;
+    margin: 0;
 }
 
 .navbar a {
-    color: #fff;
+    color: white;
     text-decoration: none;
+    padding: 10px;
     font-size: 18px;
-    padding: 10px 20px;
-    transition: background-color 0.3s ease;
-}
-/* Logo da barra de navegação */
-.navbar img {
-    height: 40px;
-}
-
-/* Título da página */
-h2 {
-    text-align: center;
-    margin: 40px 0;
-    font-size: 28px;
-    font-weight: 600;
-    color: #d35400; /* Laranja escuro */
     text-transform: uppercase;
-    letter-spacing: 2px;
 }
 
-/* Estilo da tabela */
+.navbar a:hover {
+    background-color: #ff9100;
+    border-radius: 5px;
+}
+
+.navbar img {
+    height: 50px;
+    width: 50px;
+}
+
+/* Título */
+h2.text-center {
+    text-align: center;
+    font-size: 2em;
+    margin: 30px 0;
+}
+
+/* Estilo da Tabela */
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
 table {
-    width: 85%;
-    margin: 20px auto;
+    width: 100%;
     border-collapse: collapse;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    border-radius: 30px;
 }
 
 th, td {
     padding: 15px;
     text-align: left;
-    font-size: 16px;
-    border-bottom: 2px solid #f4f4f4;
+    border: 1px solid #ddd;
 }
 
 th {
-    background-color: #f39c12; /* Laranja queimado */
-    color: #fff;
-    font-weight: 600;
+    background-color: #ffb12a;
+    color: white;
 }
 
 td {
-    background-color: #fff8e1; /* Amarelo suave */
+    background-color: #f9f9f9;
 }
 
-tr:nth-child(even) td {
-    background-color: #fcf3e4; /* Amarelo bem claro */
+table tbody tr:hover {
+    background-color: #f1f1f1;
 }
 
-tr:hover td {
-    background-color: #fcebb4; /* Amarelo bem suave */
+/* Estilo dos Botões */
+.btn {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+    text-decoration: none;
 }
 
-/* Estilo das mensagens (Nenhum instrutor encontrado) */
-p {
-    text-align: center;
-    font-size: 18px;
-    color: #ffffff; /* Vermelho suave para alertas */
+.btn-warning {
+    background-color: #6aec1f;
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #5eff00;
+}
+
+.btn-danger {
+    background-color: #d9534f;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c9302c;
 }
 
 /* Rodapé */
 .footer {
     text-align: center;
-    background-color: #f39c12; /* Laranja queimado */
-    color: #fff;
-    padding: 18px 0;
+    padding: 20px;
+    background-color: #ffb12a;
+    color: white;
     position: fixed;
-    width: 100%;
     bottom: 0;
-    border-radius: 10px 10px 0 0;
-}
-
-.footer p {
-    font-size: 14px;
-    margin: 0;
+    width: 100%;
 }
 
 /* Responsividade */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
     .navbar a {
+        padding: 8px;
         font-size: 16px;
-        padding: 12px 18px;
+    }
+
+    h2.text-center {
+        font-size: 1.8em;
+    }
+
+    .container {
+        width: 95%;
+    }
+    
+    table th, table td {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar a {
+        padding: 8px;
+        font-size: 16px;
+    }
+
+    h2.text-center {
+        font-size: 1.6em;
     }
 
     table {
-        width: 95%;
+        font-size: 12px;
     }
 
-    h2 {
-        font-size: 24px;
+    .footer {
+        position: static;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        flex-direction: column;
     }
 
-    .footer p {
+    .navbar a {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    table {
         font-size: 12px;
     }
 }

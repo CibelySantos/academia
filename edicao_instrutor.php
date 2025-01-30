@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['atualizar'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Instrutor</title>
-    <link rel="stylesheet" href="./css/edicao.css">
+    <link rel="stylesheet" href="./css/edicao_instrutor.css">
 </head>
 <body>
 <div class="container mt-4">
@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['atualizar'])) {
             <input type="text" name="especialidade" class="form-control" value="<?= htmlspecialchars($instrutor['instrutor_especialidade'] ?? ''); ?>" required>
         </div>
         <button type="submit" name="atualizar" class="btn btn-primary">Atualizar</button>
-        <a href="instrutores.php" class="btn btn-secondary">Cancelar</a>
+        <a href="instrutor.php" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
 </body>

@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-
-=======
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,11 +10,12 @@
     <!-- Barra de Navegação -->
 <nav class="navbar">
     <a href="index.php"><img src="./img/logo_academia_nav.png" alt=""></a>
+    <a href="index.php">Início</a>
     <a href="aluno.php">Aluno</a>
     <a href="instrutor.php">Instrutor</a>
     <a href="aula.php">Agendar aula</a>
 </nav>
-<div>
+<div id="centro">
     <h1>Seja bem vindo à Academia Saúde Total!</h1>
     <img src="./img/logo_academia_nav.png" alt="">
 </div>
@@ -27,4 +25,3 @@
 </footer>
 </body>
 </html>
->>>>>>> 64f6d300ae848e7532a234776a3bddeb41b3fce5

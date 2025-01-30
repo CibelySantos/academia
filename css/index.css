@@ -1,14 +1,21 @@
-*{
-    
+* {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    box-sizing: border-box; /* Inclui o padding e margin no cálculo do tamanho dos elementos */
 }
+body {
+    margin: 0;
+    padding: 0;
+}
+
 .navbar {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     background-color: #ffb12a;
-    padding: 10px 10px;
-    margin: 0px;
+    padding: 10px;
+    margin: 0;
 }
+
 .navbar a {
     color: white;
     text-decoration: none;
@@ -23,7 +30,12 @@
 }
 
 .navbar img {
-    height: 50px; /* Ajuste o tamanho da logo */
+    height: 50px;
+    width: 50px;
+}
+
+#centro {
+    margin-top: 5%;
 }
 
 /* Estilo para o cabeçalho */
@@ -49,26 +61,51 @@ img {
 .footer {
     text-align: center;
     padding: 20px;
-    background-color: #333;
+    background-color: #ffb12a;
     color: white;
-    position: relative;
+    position: fixed;
     bottom: 0;
     width: 100%;
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
+    /* Barra de navegação */
     .navbar {
         flex-direction: column;
         align-items: flex-start;
+        padding: 15px;
     }
 
     .navbar a {
         padding: 8px;
         font-size: 16px;
+        width: 100%; /* Para ocupar toda a largura disponível */
+        text-align: center;
+    }
+
+    .navbar img {
+        margin-bottom: 10px; /* Espaço adicional abaixo da imagem no menu */
+    }
+
+    /* Cabeçalho */
+    h1 {
+        font-size: 2em;
+    }
+
+    /* Rodapé */
+    .footer {
+        padding: 15px; /* Ajusta o padding no rodapé em telas menores */
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar a {
+        font-size: 14px;
+        padding: 6px;
     }
 
     h1 {
-        font-size: 2em;
+        font-size: 1.8em;
     }
 }
