@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 30-Jan-2025 às 13:29
+-- Tempo de geração: 30-Jan-2025 às 15:22
 -- Versão do servidor: 10.4.27-MariaDB
 -- versão do PHP: 8.2.0
 
@@ -52,14 +52,21 @@ CREATE TABLE `aula` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `intrutores`
+-- Estrutura da tabela `instrutores`
 --
 
-CREATE TABLE `intrutores` (
+CREATE TABLE `instrutores` (
   `instrutor_cod` int(11) NOT NULL,
   `instrutor_nome` text NOT NULL,
-  `instrutor_especialidade` varchar(100) NOT NULL
+  `instrutor_especialidade` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Extraindo dados da tabela `instrutores`
+--
+
+INSERT INTO `instrutores` (`instrutor_cod`, `instrutor_nome`, `instrutor_especialidade`) VALUES
+(1, 'amanda', 'zumba');
 
 -- --------------------------------------------------------
 
@@ -81,25 +88,29 @@ CREATE TABLE `telefone` (
 -- Índices para tabela `aluno`
 --
 ALTER TABLE `aluno`
-  ADD PRIMARY KEY (`aluno_cod`);
+  ADD PRIMARY KEY (`aluno_cod`),
+  ADD KEY `fk_aluno_telefone` (`fk_aluno_telefone`);
 
 --
 -- Índices para tabela `aula`
 --
 ALTER TABLE `aula`
-  ADD PRIMARY KEY (`aula_cod`);
+  ADD PRIMARY KEY (`aula_cod`),
+  ADD KEY `fk_aluno_cod` (`fk_aluno_cod`),
+  ADD KEY `fk_instrutor_cod` (`fk_instrutor_cod`);
 
 --
--- Índices para tabela `intrutores`
+-- Índices para tabela `instrutores`
 --
-ALTER TABLE `intrutores`
+ALTER TABLE `instrutores`
   ADD PRIMARY KEY (`instrutor_cod`);
 
 --
 -- Índices para tabela `telefone`
 --
 ALTER TABLE `telefone`
-  ADD PRIMARY KEY (`telefone_cod`);
+  ADD PRIMARY KEY (`telefone_cod`),
+  ADD KEY `fk_aluno_cod` (`fk_aluno_cod`);
 
 --
 -- AUTO_INCREMENT de tabelas despejadas
@@ -118,16 +129,39 @@ ALTER TABLE `aula`
   MODIFY `aula_cod` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `intrutores`
+-- AUTO_INCREMENT de tabela `instrutores`
 --
-ALTER TABLE `intrutores`
-  MODIFY `instrutor_cod` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `instrutores`
+  MODIFY `instrutor_cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `telefone`
 --
 ALTER TABLE `telefone`
   MODIFY `telefone_cod` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restrições para despejos de tabelas
+--
+
+--
+-- Limitadores para a tabela `aluno`
+--
+ALTER TABLE `aluno`
+  ADD CONSTRAINT `aluno_ibfk_1` FOREIGN KEY (`fk_aluno_telefone`) REFERENCES `telefone` (`telefone_cod`);
+
+--
+-- Limitadores para a tabela `aula`
+--
+ALTER TABLE `aula`
+  ADD CONSTRAINT `aula_ibfk_1` FOREIGN KEY (`fk_aluno_cod`) REFERENCES `aluno` (`aluno_cod`),
+  ADD CONSTRAINT `aula_ibfk_2` FOREIGN KEY (`fk_instrutor_cod`) REFERENCES `instrutores` (`instrutor_cod`);
+
+--
+-- Limitadores para a tabela `telefone`
+--
+ALTER TABLE `telefone`
+  ADD CONSTRAINT `telefone_ibfk_1` FOREIGN KEY (`fk_aluno_cod`) REFERENCES `aluno` (`aluno_cod`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
